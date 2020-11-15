@@ -65,3 +65,24 @@ create table Travailler
     constraint EMAIL_FK foreign key(Email) references Chercheur(Email),
     constraint NOMLABO_FK foreign key(NomLabo) references Laboratoire(NomLabo)
 );
+create table Annoter
+(
+    Email       VARCHAR2(500) not null,
+    Titre       VARCHAR2(500) not null,
+    Libelle       VARCHAR2(500) not null,
+
+    constraint ANNOTER_PK primary key(Email, Titre, Libelle),
+    constraint EMAILANNOTER_FK foreign key(Email) references Chercheur(Email),
+    constraint TITREANNOTER_FK foreign key(Titre) references Article(Titre),
+    constraint LIBELLEANNOTER_FK foreign key(Libelle) references Annotation(Libelle)
+);
+create table Noter
+(
+    Email       VARCHAR2(500) not null,
+    Titre       VARCHAR2(500) not null,
+    Note       number(38),
+
+    constraint NOTER_PK primary key(Email, Titre),
+    constraint EMAILNOTE_FK foreign key(Email) references Chercheur(Email),
+    constraint TITRENOTE_FK foreign key(Titre) references Article(Titre)
+);
