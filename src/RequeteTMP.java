@@ -4,7 +4,7 @@ public class RequeteTMP {
     private static final String url = "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
 
     public static void main(String[] args) throws SQLException {
-        q4();
+        q5();
     }
 
     public static void q1() throws SQLException {
@@ -131,6 +131,19 @@ public class RequeteTMP {
         String mdp = "kebab1234";
         Connection con = DriverManager.getConnection(url, user, mdp);
 
+        String email = "lamport@microsoft.com";
+        String req1 = "select AVG(NOTE)\n" +
+                      "from NOTER\n" +
+                      "where EMAIL = ?";
+
+        PreparedStatement pst1 = con.prepareStatement(req1);
+        pst1.setString(1, email);
+
+        pst1.execute();
+        ResultSet rs1 = pst1.getResultSet();
+
+        rs1.next();
+        System.out.println("moy : "+rs1.getFloat(1));
 
         con.close();
     }
