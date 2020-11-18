@@ -4,7 +4,7 @@ public class RequeteTMP {
     private static final String url = "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
 
     public static void main(String[] args) throws SQLException {
-        q2();
+        q4();
     }
 
     public static void q1() throws SQLException {
@@ -102,7 +102,26 @@ public class RequeteTMP {
         String user = "schmit572u";
         String mdp = "kebab1234";
         Connection con = DriverManager.getConnection(url, user, mdp);
+        int nbAnnotation = 3;
 
+        String req1 = "select distinct\n" +
+                "                EMAIL\n" +
+                "from ANNOTER A1\n" +
+                "where (select count(EMAIL)\n" +
+                "       from ANNOTER\n" +
+                "       where EMAIL = A1.EMAIL\n" +
+                "       group by EMAIL) >= ?";
+
+        PreparedStatement pst1 = con.prepareStatement(req1);
+        pst1.setInt(1, nbAnnotation);
+
+        pst1.execute();
+        ResultSet rs1 = pst1.getResultSet();
+
+        while (rs1.next()){
+            System.out.println(rs1.getString(1));
+        }
+        System.out.println("\n");
 
         con.close();
     }
