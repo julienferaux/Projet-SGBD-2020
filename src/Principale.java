@@ -122,11 +122,12 @@ public class Principale {
                     case "Question8.creation":
                         numQuestion = 8;
                         texteQuestion.setText("Question 8");
-                        jq.setText("texte de création des triggers");
+                        jq.setText("texte de création des triggers : ATTENTION ! Ecrire le trigger en dessous !");
                         break;
                     case "Question8.destruction":
                         numQuestion = 9;
                         texteQuestion.setText("Donné nom du trigger à detruire ->");
+                        reponce.setText("");
                 }
             }
 
@@ -203,4 +204,5 @@ public class Principale {
         frameTMP.setResizable(false);
         frameTMP.setVisible(true);
     }
+
 }
