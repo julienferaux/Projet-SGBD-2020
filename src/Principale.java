@@ -18,6 +18,8 @@ public class Principale {
         initialisation_connextion();
         initialiserListener();
         frame=new JFrame();
+        frame.addWindowListener(new CloseConOnExit());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
         JTextField zone_saisie;
@@ -69,7 +71,8 @@ public class Principale {
 
         frame.getContentPane().add(new JScrollPane(reponce));
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
         frame.setSize(new Dimension(800,800));
         frame.setResizable(false);
 

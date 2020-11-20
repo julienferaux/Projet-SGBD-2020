@@ -4,13 +4,13 @@ public class SQLControleur {
 
     private final String url = "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
     private String utilisateur, motdepasse;
-    private Connection con;
+    public static Connection con;
 
 
     public Boolean testConnextion(String utilisateur, String mdp) {
         boolean res = false;
         try {
-            this.con = DriverManager.getConnection(url, utilisateur, mdp);
+            con = DriverManager.getConnection(url, utilisateur, mdp);
             res = true;
             this.utilisateur = utilisateur;
             this.motdepasse = mdp;
@@ -26,12 +26,12 @@ public class SQLControleur {
         StringBuilder res = new StringBuilder();
         String user = utilisateur;
         String mdp = motdepasse;
-        this.con = DriverManager.getConnection(url, user, mdp);
+        con = DriverManager.getConnection(url, user, mdp);
         //recherche par email
         String req1 = "select ARTICLE.TITRE, RESUME, TYPEARTICLE\n" +
                 "from ARTICLE inner join ECRIRE on ARTICLE.TITRE = ECRIRE.TITRE\n" +
                 "where EMAIL = ?";
-        PreparedStatement st1 = this.con.prepareStatement(req1);
+        PreparedStatement st1 = con.prepareStatement(req1);
 
         st1.setString(1, recherche);
         st1.execute();
@@ -54,12 +54,12 @@ public class SQLControleur {
         StringBuilder res = new StringBuilder();
         String user = utilisateur;
         String mdp = motdepasse;
-        this.con = DriverManager.getConnection(url, user, mdp);
+        con = DriverManager.getConnection(url, user, mdp);
 
         String req1 = "select NOMCHERCHEUR, PRENOMCHERCHEUR, CHERCHEUR.EMAIL\n" +
                 "from ECRIRE inner join CHERCHEUR on ECRIRE.EMAIL = CHERCHEUR.EMAIL\n" +
                 "where TITRE = (select TITRE from ECRIRE where EMAIL = ?) and CHERCHEUR.EMAIL != ?";
-        PreparedStatement st1 = this.con.prepareStatement(req1);
+        PreparedStatement st1 = con.prepareStatement(req1);
 
         st1.setString(1, recherche);
         st1.setString(2, recherche);
@@ -81,16 +81,16 @@ public class SQLControleur {
         StringBuilder res = new StringBuilder();
         String user = utilisateur;
         String mdp = motdepasse;
-        this.con = DriverManager.getConnection(url, user, mdp);
+        con = DriverManager.getConnection(url, user, mdp);
 
-        Statement st = this.con.createStatement();
+        Statement st = con.createStatement();
         String req1 = "select EMAIL\n" +
                 "from CHERCHEUR";
 
         String req2 = "select NOMLABO\n" +
                 "from TRAVAILLER inner join CHERCHEUR on CHERCHEUR.EMAIL = TRAVAILLER.EMAIL\n" +
                 "where CHERCHEUR.EMAIL = ?";
-        PreparedStatement pst = this.con.prepareStatement(req2);
+        PreparedStatement pst = con.prepareStatement(req2);
 
         st.execute(req1);
         ResultSet rs1 = st.getResultSet();
@@ -116,7 +116,7 @@ public class SQLControleur {
         StringBuilder res = new StringBuilder();
         String user = utilisateur;
         String mdp = motdepasse;
-        this.con = DriverManager.getConnection(url, user, mdp);
+        con = DriverManager.getConnection(url, user, mdp);
 
         String req1 = "select distinct\n" +
                 "                EMAIL\n" +
@@ -126,7 +126,7 @@ public class SQLControleur {
                 "       where EMAIL = A1.EMAIL\n" +
                 "       group by EMAIL) >= ?";
 
-        PreparedStatement pst1 = this.con.prepareStatement(req1);
+        PreparedStatement pst1 = con.prepareStatement(req1);
         pst1.setInt(1, nbArticle);
         pst1.execute();
         ResultSet rs1 = pst1.getResultSet();
@@ -143,13 +143,13 @@ public class SQLControleur {
         String res = "";
         String user = utilisateur;
         String mdp = motdepasse;
-        this.con = DriverManager.getConnection(url, user, mdp);
+        con = DriverManager.getConnection(url, user, mdp);
 
         String req1 = "select AVG(NOTE)\n" +
                 "from NOTER\n" +
                 "where EMAIL = ?";
 
-        PreparedStatement pst1 = this.con.prepareStatement(req1);
+        PreparedStatement pst1 = con.prepareStatement(req1);
         pst1.setString(1, recherche);
 
         pst1.execute();
@@ -166,7 +166,7 @@ public class SQLControleur {
         StringBuilder res = new StringBuilder();
         String user = utilisateur;
         String mdp = motdepasse;
-        this.con = DriverManager.getConnection(url, user, mdp);
+        con = DriverManager.getConnection(url, user, mdp);
 
         String labo = "Department of Computer and Information Science University of Pennsylvania";
 
@@ -180,8 +180,8 @@ public class SQLControleur {
                 "from ECRIRE inner join NOTER on ECRIRE.TITRE = NOTER.TITRE\n" +
                 "where ECRIRE.EMAIL = ?";
 
-        PreparedStatement pst1 = this.con.prepareStatement(req1);
-        PreparedStatement pst2 = this.con.prepareStatement(req2);
+        PreparedStatement pst1 = con.prepareStatement(req1);
+        PreparedStatement pst2 = con.prepareStatement(req2);
 
         pst1.setString(1, labo);
         pst1.execute();
@@ -207,7 +207,7 @@ public class SQLControleur {
         String res;
         String user = utilisateur;
         String mdp = motdepasse;
-        this.con = DriverManager.getConnection(url, user, mdp);
+        con = DriverManager.getConnection(url, user, mdp);
 
         String req1 = "select EMAIL\n" +
                 "from NOTER\n" +
@@ -224,8 +224,8 @@ public class SQLControleur {
                 "                              inner join TRAVAILLER on ECRIRE.EMAIL = TRAVAILLER.EMAIL\n" +
                 "                     where TITRE = ?)";
 
-        PreparedStatement pst1 = this.con.prepareStatement(req1);
-        PreparedStatement pst2 = this.con.prepareStatement(req2);
+        PreparedStatement pst1 = con.prepareStatement(req1);
+        PreparedStatement pst2 = con.prepareStatement(req2);
 
         pst1.setString(1, recherche);
         pst1.setString(2, recherche);
@@ -257,35 +257,35 @@ public class SQLControleur {
     public void creerTrigger(String codeTrigger) throws SQLException {
         String user = utilisateur;
         String mdp = motdepasse;
-        this.con = DriverManager.getConnection(url, user, mdp);
+        con = DriverManager.getConnection(url, user, mdp);
 
-        Statement stt = this.con.createStatement();
+        Statement stt = con.createStatement();
 
         stt.execute(codeTrigger);
-        this.con.commit();
+        
     }
 
     public void supprTrigger(String nomTrigger) throws SQLException {
         String user = motdepasse;
         String mdp = utilisateur;
-        this.con = DriverManager.getConnection(url, user, mdp);
+        con = DriverManager.getConnection(url, user, mdp);
 
-        Statement stt = this.con.createStatement();
+        Statement stt = con.createStatement();
 
         String req1 = "drop trigger " + nomTrigger;
 
         stt.execute(req1);
-        this.con.commit();
+        
     }
 
     public void fermerCon() throws SQLException {
-        this.con.close();
+        con.close();
     }
 
     public String getListeTrigger() throws SQLException {
         StringBuilder res = new StringBuilder();
         String req1 = "select TRIGGER_NAME from USER_TRIGGERS";
-        PreparedStatement pst1 = this.con.prepareStatement(req1);
+        PreparedStatement pst1 = con.prepareStatement(req1);
         pst1.execute();
         ResultSet rs1 = pst1.getResultSet();
 
