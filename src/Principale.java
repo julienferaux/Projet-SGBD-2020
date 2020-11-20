@@ -20,7 +20,7 @@ public class Principale {
         zone_saisie.setPreferredSize(new Dimension(200,30));
 
         JPanel recherche= new JPanel(new GridLayout(1,3));
-        recherche.add(texteQuestion = new JLabel("Donné l'adresse email d'un auteur ici ->",JLabel.CENTER));
+        recherche.add(texteQuestion = new JLabel("Donné l'adresse email d'un chercheur ici ->",JLabel.CENTER));
         recherche.add(zone_saisie);
 
         JButton boutonChercher = new JButton("Chercher");
