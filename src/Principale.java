@@ -124,7 +124,12 @@ public class Principale {
                     case "Question8.destruction":
                         numQuestion = 9;
                         texteQuestion.setText("Donné nom du trigger à detruire ->");
-                        reponce.setText("");
+                        jq.setText("En dessous est afficher la lise des triggers présent :");
+                        try {
+                            reponce.setText(sqlControleur.getListeTrigger());
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
                 }
             }
 
