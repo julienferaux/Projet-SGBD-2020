@@ -10,6 +10,7 @@ public class Principale {
     private static ActionListener actionBouton;
     private static int numQuestion = 1;
     private static JLabel texteQuestion, jq;
+    private static JTextArea reponce;
 
     public static void main(String[] args) {
         initialiserListener();
@@ -59,9 +60,7 @@ public class Principale {
         jq = new JLabel("1. Détermination de la liste des articles écrits par un auteur donné.");
         recherche.add(jq);
 
-        JTextArea reponce = new JTextArea(10,10);
-
-
+        reponce = new JTextArea(2,2);
 
 
 
@@ -72,7 +71,9 @@ public class Principale {
 
         frame.getContentPane().add(dessus,BorderLayout.NORTH);
         frame.add(question, BorderLayout.WEST);
-        frame.add(reponce);
+
+        frame.getContentPane().add(new JScrollPane(reponce));
+        //frame.add(reponce);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(800,800));
@@ -135,9 +136,32 @@ public class Principale {
     public static void repondreQuestion(int nbQ,String recherche) throws SQLException {
         switch (nbQ){
             case (1) :
+                reponce.setText(sqlControleur.q1(recherche));
+                break;
+            case (2) :
+                reponce.setText(sqlControleur.q2(recherche));
+                break;
+            case (3) :
+                reponce.setText(sqlControleur.q3());
+                break;
+            case (4) :
+                reponce.setText(sqlControleur.q4(Integer.parseInt(recherche)));
+                break;
+            case (5) :
+                reponce.setText(sqlControleur.q5(recherche));
+                break;
+            case (6) :
+                reponce.setText(sqlControleur.q6(recherche));
+                break;
+            case (7) :
+                sqlControleur.q7();
+                break;
+                /*
+            case (8) :
                 System.out.println("coucou");
-                sqlControleur.q1();
-
+                sqlControleur.q8();
+                break;
+            */
         }
     }
 }
