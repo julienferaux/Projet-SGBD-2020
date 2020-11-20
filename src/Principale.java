@@ -151,11 +151,11 @@ public class Principale {
             case (7) :
                 reponce.setText(sqlControleur.q7(recherche));
                 break;
-                /*
             case (8) :
-                sqlControleur.q8();
+                sqlControleur.creerTrigger(reponce.getText());
                 break;
-            */
+            case (9) :
+                sqlControleur.supprTrigger(recherche);
         }
     }
     public static void initialisation_connextion(){
