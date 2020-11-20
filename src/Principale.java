@@ -11,10 +11,13 @@ public class Principale {
     private static int numQuestion = 1;
     private static JLabel texteQuestion, jq;
     private static JTextArea reponce;
+    private static JButton [] boutonTab;
+    private static JFrame frame;
 
     public static void main(String[] args) {
+        initialisation_connextion();
         initialiserListener();
-        JFrame frame=new JFrame();
+        frame=new JFrame();
 
 
         JTextField zone_saisie;
@@ -25,11 +28,11 @@ public class Principale {
         recherche.add(texteQuestion = new JLabel("Donné l'adresse email d'un chercheur ici ->",JLabel.CENTER));
         recherche.add(zone_saisie);
 
-        JButton boutonChercher = new JButton("Chercher");
-        recherche.add(boutonChercher);
+        JButton boutonValider = new JButton("Valider");
+        recherche.add(boutonValider);
 
 
-        boutonChercher.addActionListener(new ActionListener(){
+        boutonValider.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if(e.getID() == 1001){
                     try {
@@ -42,11 +45,9 @@ public class Principale {
             }
         });
 
-
-
         JPanel question = new JPanel(new GridLayout(9,1));
-        String [] nomBouton = {"Question1","Question2","Question3","Question4","Question5","Question6","Question7","Question8","Question9"};
-        JButton [] boutonTab = new JButton[nomBouton.length];
+        String [] nomBouton = {"Question1","Question2","Question3","Question4","Question5","Question6","Question7","Question8.creation","Question8.destruction"};
+        boutonTab = new JButton[nomBouton.length];
 
         for (int i = 0; i < nomBouton.length; i++){
             boutonTab[i]=new JButton(nomBouton[i]);
@@ -54,31 +55,23 @@ public class Principale {
             boutonTab[i].addActionListener(actionBouton);
         }
 
-
-
-
         jq = new JLabel("1. Détermination de la liste des articles écrits par un auteur donné.");
         recherche.add(jq);
 
         reponce = new JTextArea(2,2);
 
-
-
         JPanel dessus = new JPanel(new GridLayout(2,1));
         dessus.add(recherche);
         dessus.add(jq);
-
 
         frame.getContentPane().add(dessus,BorderLayout.NORTH);
         frame.add(question, BorderLayout.WEST);
 
         frame.getContentPane().add(new JScrollPane(reponce));
-        //frame.add(reponce);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(800,800));
         frame.setResizable(false);
-        frame.setVisible(true);
     }
 
     public static void initialiserListener(){
@@ -86,7 +79,6 @@ public class Principale {
         actionBouton = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String texteBe = e.getActionCommand();
-                //System.out.println(texteBe);
                 switch (texteBe){
                     case "Question1":
                         numQuestion = 1;
@@ -100,7 +92,7 @@ public class Principale {
                         break;
                     case "Question3":
                         numQuestion = 3;
-                        texteQuestion.setText("Apuyer sur chercher ->");
+                        texteQuestion.setText("Apuyer sur Valider ->");
                         jq.setText("3. Affichage de la liste des laboratoires de chaque chercheur.");
                         break;
                     case "Question4":
@@ -123,14 +115,17 @@ public class Principale {
                         texteQuestion.setText("Donné le Titre d'un article ici ->");
                         jq.setText("<html>Verification que la note maximale d'un article donné n'a pas été attribuée par<br>un chercheur appartenant au meme laboratoire que l'un des auteurs de cet article</html>");
                         break;
-                    case "Question8":
+                    case "Question8.creation":
                         numQuestion = 8;
                         texteQuestion.setText("Question 8");
-                        jq.setText("<html>TRIGGERS<br></html>");
+                        jq.setText("texte de création des triggers");
                         break;
+                    case "Question8.destruction":
+                        numQuestion = 9;
+                        texteQuestion.setText("Donné nom du trigger à detruire ->");
                 }
-                System.out.println(numQuestion);
             }
+
         };
     }
     public static void repondreQuestion(int nbQ,String recherche) throws SQLException {
@@ -158,10 +153,50 @@ public class Principale {
                 break;
                 /*
             case (8) :
-                System.out.println("coucou");
                 sqlControleur.q8();
                 break;
             */
         }
+    }
+    public static void initialisation_connextion(){
+        JFrame frameTMP = new JFrame();
+
+        JPanel jpHaut = new JPanel();
+
+        jpHaut.setLayout(new GridLayout(2,2));
+        jpHaut.add(new JLabel("Nom d'utilisateur :"));
+
+        JTextField jtf_utilisateur = new JTextField();
+        jpHaut.add(jtf_utilisateur);
+
+        jpHaut.add(new JLabel("mot de passe :"));
+        JTextField jtf_mdp = new JTextField();
+        jpHaut.add(jtf_mdp);
+
+        frameTMP.setLayout(new GridLayout(2,1));
+        frameTMP.add(jpHaut);
+        JButton bouton_connexion = new JButton("Connexion");
+        frameTMP.add(bouton_connexion);
+
+        bouton_connexion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String utilisateur = jtf_utilisateur.getText();
+                String mdp = jtf_mdp.getText();
+                boolean retour = sqlControleur.testConnextion(utilisateur,mdp);
+                if (!retour){
+                    jtf_mdp.setText("erreur");
+                    jtf_utilisateur.setText("erreur");
+                }
+                else {
+                    frame.setVisible(true);
+                    frameTMP.dispose();
+                }
+            }
+        });
+        frameTMP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameTMP.setLocation(200,200);
+        frameTMP.setSize(new Dimension(300,300));
+        frameTMP.setResizable(false);
+        frameTMP.setVisible(true);
     }
 }

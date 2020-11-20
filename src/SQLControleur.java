@@ -2,12 +2,29 @@ import java.sql.*;
 
 public class SQLControleur {
 
-    private  String url = "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
+    private String url = "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
+    private String utilisateur, motdepasse;
+
+
+    public Boolean testConnextion(String utilisateur, String mdp){
+        Boolean res = false;
+        try {
+            Connection con1 = DriverManager.getConnection(url, utilisateur, mdp);
+            res = true;
+            this.utilisateur = utilisateur;
+            this.motdepasse=mdp;
+
+            con1. close();
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        }
+        return res;
+    }
 
     public String q1(String recherche) throws SQLException {
         String res = "";
-        String user = "schmit572u";
-        String mdp = "kebab1234";
+        String user = utilisateur;
+        String mdp = motdepasse;
         Connection con = DriverManager.getConnection(url, user, mdp);
         //recherche par email
         String req1 = "select ARTICLE.TITRE, RESUME, TYPEARTICLE\n" +
@@ -35,8 +52,8 @@ public class SQLControleur {
 
     public String q2(String recherche) throws SQLException {
         String res = "";
-        String user = "schmit572u";
-        String mdp = "kebab1234";
+        String user = utilisateur;
+        String mdp = motdepasse;
         Connection con = DriverManager.getConnection(url, user, mdp);
 
         String req1 = "select NOMCHERCHEUR, PRENOMCHERCHEUR, CHERCHEUR.EMAIL\n" +
@@ -63,8 +80,8 @@ public class SQLControleur {
 
     public String q3() throws SQLException {
         String res = "";
-        String user = "schmit572u";
-        String mdp = "kebab1234";
+        String user = utilisateur;
+        String mdp = motdepasse;
         Connection con = DriverManager.getConnection(url, user, mdp);
 
         Statement st = con.createStatement();
@@ -98,8 +115,8 @@ public class SQLControleur {
 
     public String q4(int nbArticle) throws SQLException {
         String res="";
-        String user = "schmit572u";
-        String mdp = "kebab1234";
+        String user = utilisateur;
+        String mdp = motdepasse;
         Connection con = DriverManager.getConnection(url, user, mdp);
         int nbAnnotation = nbArticle;
 
@@ -126,8 +143,8 @@ public class SQLControleur {
 
     public String q5(String recherche) throws SQLException {
         String res ="";
-        String user = "schmit572u";
-        String mdp = "kebab1234";
+        String user = utilisateur;
+        String mdp = motdepasse;
         Connection con = DriverManager.getConnection(url, user, mdp);
 
         String email = recherche;
@@ -150,8 +167,8 @@ public class SQLControleur {
 
     public String q6(String recherche) throws SQLException {
         String res ="";
-        String user = "schmit572u";
-        String mdp = "kebab1234";
+        String user = utilisateur;
+        String mdp = motdepasse;
         Connection con = DriverManager.getConnection(url, user, mdp);
 
         String labo = "Department of Computer and Information Science University of Pennsylvania";
@@ -193,8 +210,8 @@ public class SQLControleur {
 
     public String q7(String recherche) throws SQLException {
         String res = "";
-        String user = "schmit572u";
-        String mdp = "kebab1234";
+        String user = utilisateur;
+        String mdp = motdepasse;
         Connection con = DriverManager.getConnection(url, user, mdp);
 
         String titre = recherche;
