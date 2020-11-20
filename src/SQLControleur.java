@@ -255,8 +255,8 @@ public class SQLControleur {
     }
 
     public void creerTrigger(String codeTrigger) throws SQLException {
-        String user = "schmit572u";
-        String mdp = "kebab1234";
+        String user = utilisateur;
+        String mdp = motdepasse;
         this.con = DriverManager.getConnection(url, user, mdp);
 
         Statement stt = this.con.createStatement();
@@ -266,8 +266,8 @@ public class SQLControleur {
     }
 
     public void supprTrigger(String nomTrigger) throws SQLException {
-        String user = "schmit572u";
-        String mdp = "kebab1234";
+        String user = motdepasse;
+        String mdp = utilisateur;
         this.con = DriverManager.getConnection(url, user, mdp);
 
         Statement stt = this.con.createStatement();

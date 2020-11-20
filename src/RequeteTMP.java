@@ -261,7 +261,6 @@ public class RequeteTMP {
 
     public static void q8() throws SQLException {
         String triggerQuestionA = "";
-
         String triggerQuestionB = "";
     }
 
