@@ -19,7 +19,7 @@ public class Principale {
         initialiserListener();
         frame=new JFrame();
         frame.addWindowListener(new CloseConOnExit());
-        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
         JTextField zone_saisie;

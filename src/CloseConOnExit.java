@@ -12,7 +12,7 @@ public class CloseConOnExit implements WindowListener {
     public void windowClosing(WindowEvent e) {
         try {
             SQLControleur.con.close();
-            System.out.println("test");
+            System.out.println("close");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

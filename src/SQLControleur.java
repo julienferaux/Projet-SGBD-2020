@@ -262,7 +262,7 @@ public class SQLControleur {
         Statement stt = con.createStatement();
 
         stt.execute(codeTrigger);
-        con.commit();
+        
     }
 
     public void supprTrigger(String nomTrigger) throws SQLException {
@@ -275,7 +275,7 @@ public class SQLControleur {
         String req1 = "drop trigger " + nomTrigger;
 
         stt.execute(req1);
-        con.commit();
+        
     }
 
     public void fermerCon() throws SQLException {
