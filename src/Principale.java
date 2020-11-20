@@ -72,6 +72,7 @@ public class Principale {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(800,800));
         frame.setResizable(false);
+
     }
 
     public static void initialiserListener(){
@@ -158,7 +159,7 @@ public class Principale {
             */
         }
     }
-    public static void initialisation_connextion(){
+    public static void initialisation_connextion() {
         JFrame frameTMP = new JFrame();
 
         JPanel jpHaut = new JPanel();
