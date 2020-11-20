@@ -7,13 +7,13 @@ public class SQLControleur {
     private Connection con;
 
 
-    public Boolean testConnextion(String utilisateur, String mdp){
+    public Boolean testConnextion(String utilisateur, String mdp) {
         boolean res = false;
         try {
-             this.con = DriverManager.getConnection(url, utilisateur, mdp);
+            this.con = DriverManager.getConnection(url, utilisateur, mdp);
             res = true;
             this.utilisateur = utilisateur;
-            this.motdepasse=mdp;
+            this.motdepasse = mdp;
 
 
         } catch (SQLException ex) {
@@ -38,7 +38,7 @@ public class SQLControleur {
         ResultSet rs1 = st1.getResultSet();
 
         res.append("q1 email : \n");
-        while (rs1.next()){
+        while (rs1.next()) {
             res.append("titre : ").append(rs1.getString(1)).append("\nresume : ")
                     .append(rs1.getString(2))
                     .append("\ntype : ").append(rs1.getString(3)).append("\n").append("\n");
@@ -113,7 +113,7 @@ public class SQLControleur {
     }
 
     public String q4(int nbArticle) throws SQLException {
-        StringBuilder res= new StringBuilder();
+        StringBuilder res = new StringBuilder();
         String user = utilisateur;
         String mdp = motdepasse;
         this.con = DriverManager.getConnection(url, user, mdp);
@@ -140,7 +140,7 @@ public class SQLControleur {
 
 
     public String q5(String recherche) throws SQLException {
-        String res ="";
+        String res = "";
         String user = utilisateur;
         String mdp = motdepasse;
         this.con = DriverManager.getConnection(url, user, mdp);
@@ -156,14 +156,14 @@ public class SQLControleur {
         ResultSet rs1 = pst1.getResultSet();
 
         rs1.next();
-        res+=("moy : " + rs1.getFloat(1));
+        res += ("moy : " + rs1.getFloat(1));
 
 
         return res;
     }
 
     public String q6(String recherche) throws SQLException {
-        String res ="";
+        StringBuilder res = new StringBuilder();
         String user = utilisateur;
         String mdp = motdepasse;
         this.con = DriverManager.getConnection(url, user, mdp);
@@ -187,26 +187,24 @@ public class SQLControleur {
         pst1.execute();
         ResultSet rs1 = pst1.getResultSet();
 
-        res += ("chercheurs du lab " + labo + " : \n");
+        res.append("chercheurs du lab ").append(labo).append(" : \n");
         while (rs1.next()) {
-            res += ("    " + rs1.getString(1) + " " + rs1.getString(2) + " : ");
+            res.append("    ").append(rs1.getString(1)).append(" ").append(rs1.getString(2)).append(" : ");
             pst2.setString(1, rs1.getString(3));
             pst2.execute();
             ResultSet rs2 = pst2.getResultSet();
             rs2.next();
-            res += ("        nombre d'article : " + rs2.getInt(1)
-                    + "  nombre de note recu : " + rs2.getInt(2)
-                    + "  moy note : " + rs2.getFloat(3) + "\n");
+            res.append("        nombre d'article : ").append(rs2.getInt(1)).append("  nombre de note recu : ").append(rs2.getInt(2)).append("  moy note : ").append(rs2.getFloat(3)).append("\n");
         }
-        res += ("\n");
+        res.append("\n");
 
 
-        return res;
+        return res.toString();
     }
 
 
     public String q7(String recherche) throws SQLException {
-        String res = "";
+        String res;
         String user = utilisateur;
         String mdp = motdepasse;
         this.con = DriverManager.getConnection(url, user, mdp);
@@ -243,10 +241,10 @@ public class SQLControleur {
 
         ResultSet rs2 = pst2.getResultSet();
 
-         res = "La note maximal de cet article n'a pas été donnée par un chercheur du meme laboratoire.";//réponse a la question
+        res = "La note maximal de cet article n'a pas été donnée par un chercheur du meme laboratoire.";//réponse a la question
 
-        while (rs2.next()){
-            if(rs2.getString(1).equals(emailNoteMax)){
+        while (rs2.next()) {
+            if (rs2.getString(1).equals(emailNoteMax)) {
                 res = "La note maximal de cet article a été donnée par un chercheur du meme laboratoire.";
                 break;
             }
@@ -266,6 +264,7 @@ public class SQLControleur {
         stt.execute(codeTrigger);
         this.con.commit();
     }
+
     public void supprTrigger(String nomTrigger) throws SQLException {
         String user = "schmit572u";
         String mdp = "kebab1234";
@@ -273,10 +272,14 @@ public class SQLControleur {
 
         Statement stt = this.con.createStatement();
 
-        String req1 = "drop trigger "+nomTrigger;
+        String req1 = "drop trigger " + nomTrigger;
 
         stt.execute(req1);
         this.con.commit();
+    }
+
+    public void fermerCon() throws SQLException {
+        this.con.close();
     }
 
 }
