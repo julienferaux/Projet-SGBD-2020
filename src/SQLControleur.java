@@ -282,4 +282,17 @@ public class SQLControleur {
         this.con.close();
     }
 
+    public String getListeTrigger() throws SQLException {
+        StringBuilder res = new StringBuilder();
+        String req1 = "select TRIGGER_NAME from USER_TRIGGERS";
+        PreparedStatement pst1 = this.con.prepareStatement(req1);
+        pst1.execute();
+        ResultSet rs1 = pst1.getResultSet();
+
+        while (rs1.next()){
+            res.append("- ").append(rs1.getString(1)).append("\n");
+        }
+
+        return res.toString();
+    }
 }
