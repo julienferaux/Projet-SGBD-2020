@@ -255,9 +255,7 @@ public class SQLControleur {
     }
 
     public void creerTrigger(String codeTrigger) throws SQLException {
-        String user = utilisateur;
-        String mdp = motdepasse;
-        con = DriverManager.getConnection(url, user, mdp);
+        
 
         Statement stt = con.createStatement();
 
@@ -266,10 +264,6 @@ public class SQLControleur {
     }
 
     public void supprTrigger(String nomTrigger) throws SQLException {
-        String user = motdepasse;
-        String mdp = utilisateur;
-        con = DriverManager.getConnection(url, user, mdp);
-
         Statement stt = con.createStatement();
 
         String req1 = "drop trigger " + nomTrigger;
