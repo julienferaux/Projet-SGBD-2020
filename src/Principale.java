@@ -2,11 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class Principale {
+    private static SQLControleur sqlControleur = new SQLControleur();
 
     private static ActionListener actionBouton;
-
     private static int numQuestion = 1;
     private static JLabel texteQuestion, jq;
 
@@ -30,7 +31,11 @@ public class Principale {
         boutonChercher.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if(e.getID() == 1001){
-                    System.out.println("bibite");
+                    try {
+                        repondreQuestion(numQuestion,zone_saisie.getText());
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
                     zone_saisie.setText("");
                 }
             }
@@ -127,9 +132,11 @@ public class Principale {
             }
         };
     }
-    public static void repondreQuestion(int nbQ){
+    public static void repondreQuestion(int nbQ,String recherche) throws SQLException {
         switch (nbQ){
             case (1) :
+                System.out.println("coucou");
+                sqlControleur.q1();
 
         }
     }
