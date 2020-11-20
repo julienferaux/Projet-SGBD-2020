@@ -45,7 +45,7 @@ public class Principale {
 
 
         JPanel question = new JPanel(new GridLayout(9,1));
-        String [] nomBouton = {"bouton1","bouton2","bouton3","bouton4","bouton5","bouton6","bouton7","bouton8","bouton9"};
+        String [] nomBouton = {"Question1","Question2","Question3","Question4","Question5","Question6","Question7","Question8","Question9"};
         JButton [] boutonTab = new JButton[nomBouton.length];
 
         for (int i = 0; i < nomBouton.length; i++){
@@ -88,42 +88,42 @@ public class Principale {
                 String texteBe = e.getActionCommand();
                 //System.out.println(texteBe);
                 switch (texteBe){
-                    case "bouton1":
+                    case "Question1":
                         numQuestion = 1;
                         texteQuestion.setText("Donné l'adresse email d'un chercheur ici ->");
                         jq.setText("1. Détermination de la liste des articles écrits par un auteur donné.");
                         break;
-                    case "bouton2":
+                    case "Question2":
                         numQuestion = 2;
                         texteQuestion.setText("Donné l'adresse email d'un chercheur ici ->");
                         jq.setText("2. Affichage de la liste des co-auteurs ayant travaillé avec un chercheur donné.");
                         break;
-                    case "bouton3":
+                    case "Question3":
                         numQuestion = 3;
                         texteQuestion.setText("Apuyer sur chercher ->");
                         jq.setText("3. Affichage de la liste des laboratoires de chaque chercheur.");
                         break;
-                    case "bouton4":
+                    case "Question4":
                         numQuestion = 4;
                         texteQuestion.setText("Donné le nombre d’article minimum ->");
                         jq.setText("4. Affichage la liste des chercheurs ayant annoté au moins un nombre donné d articles.");
                         break;
-                    case "bouton5":
+                    case "Question5":
                         numQuestion = 5;
                         texteQuestion.setText("Donné l'adresse email d'un chercheur ici ->");
                         jq.setText("5. Calcul de la moyenne des notes données par un chercheur donné.");
                         break;
-                    case "bouton6":
+                    case "Question6":
                         numQuestion = 6;
                         texteQuestion.setText("Donné le nom d'un laboratoire ici ->");
                         jq.setText("<html>Pour chaque chercheur d'un laboratoire donné, afficher le nombre d'articles<br>lpubliés, le nombre et la moyenne des notes obtenues. On classera les<br>chercheurs par ordre décroissant du nombre d'articles publiés.</html>");
                         break;
-                    case "bouton7":
+                    case "Question7":
                         numQuestion = 7;
                         texteQuestion.setText("Donné le Titre d'un article ici ->");
                         jq.setText("<html>Verification que la note maximale d'un article donné n'a pas été attribuée par<br>un chercheur appartenant au meme laboratoire que l'un des auteurs de cet article</html>");
                         break;
-                    case "bouton8":
+                    case "Question8":
                         numQuestion = 8;
                         texteQuestion.setText("Question 8");
                         jq.setText("<html>TRIGGERS<br></html>");
@@ -154,7 +154,7 @@ public class Principale {
                 reponce.setText(sqlControleur.q6(recherche));
                 break;
             case (7) :
-                sqlControleur.q7();
+                reponce.setText(sqlControleur.q7(recherche));
                 break;
                 /*
             case (8) :

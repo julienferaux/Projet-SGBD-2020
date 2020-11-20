@@ -191,13 +191,13 @@ public class SQLControleur {
     }
 
 
-    public void q7() throws SQLException {
+    public String q7(String recherche) throws SQLException {
+        String res = "";
         String user = "schmit572u";
         String mdp = "kebab1234";
         Connection con = DriverManager.getConnection(url, user, mdp);
 
-        String titre = "Adding Structure to Unstructured Data";
-
+        String titre = recherche;
         String req1 = "select EMAIL\n" +
                 "from NOTER\n" +
                 "where TITRE = ?\n" +
@@ -230,16 +230,17 @@ public class SQLControleur {
 
         ResultSet rs2 = pst2.getResultSet();
 
-        boolean res = false;//réponse a la question
+         res = "La note maximal de cet article n'a pas été donnée par un chercheur du meme laboratoire.";//réponse a la question
 
         while (rs2.next()){
             if(rs2.getString(1).equals(emailNoteMax)){
-                res = true;
+                res = "La note maximal de cet article a été donnée par un chercheur du meme laboratoire.";
                 break;
             }
         }
         System.out.println(res);
         con.close();
+        return res;
     }
 
 
