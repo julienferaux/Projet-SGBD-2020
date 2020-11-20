@@ -243,6 +243,27 @@ public class SQLControleur {
         return res;
     }
 
+    public void creerTrigger(String codeTrigger) throws SQLException {
+        String user = "schmit572u";
+        String mdp = "kebab1234";
+        Connection con = DriverManager.getConnection(url, user, mdp);
 
+        Statement stt = con.createStatement();
+
+        stt.execute(codeTrigger);
+        con.commit();
+    }
+    public void supprTrigger(String nomTrigger) throws SQLException {
+        String user = "schmit572u";
+        String mdp = "kebab1234";
+        Connection con = DriverManager.getConnection(url, user, mdp);
+
+        Statement stt = con.createStatement();
+
+        String req1 = "drop trigger "+nomTrigger;
+
+        stt.execute(req1);
+        con.commit();
+    }
 
 }
